@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0a0e17">
+  <meta name="description" content="Your cybersecurity career, labs, certifications and daily practice in one personal command center.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>CyberHub · Career & Lab Command Center</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#platforms"><span class="brand-icon">⌘</span><span>CYBER<span class="cyan">HUB</span><small>CAREER & LAB COMMAND CENTER</small></span></a>
+      <div class="system"><span class="status-dot"></span><span id="connection">SYSTEM ONLINE</span><span class="version">v1.0</span></div>
+      <p class="nav-label">WORKSPACE</p>
+      <nav aria-label="Main navigation">
+        <a href="#platforms" data-tab="platforms"><span>◫</span> Platforms & Labs <b id="platform-count">10</b></a>
+        <a href="#certifications" data-tab="certifications"><span>◎</span> Cert Roadmaps</a>
+        <a href="#tasks" data-tab="tasks"><span>☑</span> Daily Lab Log</a>
+        <a href="#sync" data-tab="sync"><span>⇄</span> Sync & Backup</a>
+      </nav>
+      <div class="sidebar-bottom"><div class="streak-card"><span class="streak-icon">ϟ</span><div><strong id="streak">0 days</strong><small>CURRENT STUDY STREAK</small></div></div><button class="button quiet full" id="lock-button" hidden>♧ Lock workspace</button><p class="local-note"><span class="status-dot"></span> Your data stays in your browser</p></div>
+    </aside>
+    <div class="main-shell">
+      <header class="topbar"><div class="breadcrumb"><button class="icon-button" id="menu-button" aria-label="Toggle navigation" aria-expanded="false">☰</button><span class="mono muted">WORKSPACE</span><span class="muted">/</span><span id="breadcrumb">Platforms & Labs</span></div><div class="top-actions"><span class="date mono" id="today"></span><button class="button quiet" id="install-button" hidden>↓ Install app</button><span class="avatar" aria-label="Personal workspace">CH</span></div></header>
+      <main>
+        <div class="page-heading"><div><p class="eyebrow"><span class="status-dot"></span> YOUR NEXT LEVEL STARTS HERE</p><h1 id="page-title">Your cyber command center<span class="cyan">.</span></h1><p id="page-description">One workspace. Every platform. Keep building your edge.</p></div><button class="button primary" id="add-platform">＋ Add platform</button></div>
+        <div class="stats-grid"><div class="stat"><span class="stat-icon cyan">◫</span><div><span class="stat-label">CONNECTED PLATFORMS</span><strong id="stat-platforms">10 <small>ready to explore</small></strong></div></div><div class="stat"><span class="stat-icon emerald">◎</span><div><span class="stat-label">CERTIFICATIONS</span><strong id="stat-certs">4 <small>on your roadmap</small></strong></div></div><div class="stat"><span class="stat-icon amber">☑</span><div><span class="stat-label">TODAY'S PROGRESS</span><strong id="stat-tasks">0 / 0 <small>tasks complete</small></strong></div></div></div>
+        <section id="view-platforms" class="view" aria-label="Platforms and labs"><div class="section-toolbar"><div class="filters" id="filters" aria-label="Platform categories"></div><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search your platforms…" aria-label="Search platforms"></label></div><div class="section-heading"><h2 id="platform-heading">All platforms <span id="result-count"></span></h2><span class="mono muted small">YOUR LAUNCHPAD</span></div><div class="platform-grid" id="platform-grid"></div><div class="empty" id="platform-empty" hidden>No platforms found. Try another search or add your own.</div><div class="bottom-note"><span class="cyan">⌁</span> Small steps. Real skills. A stronger career.</div></section>
+        <section id="view-certifications" class="view" aria-label="Certification roadmaps" hidden><div class="section-heading"><h2>Your certification roadmap</h2><button class="button" id="add-cert">＋ Add certification</button></div><div class="cert-grid" id="cert-grid"></div></section>
+        <section id="view-tasks" class="view" aria-label="Daily study log" hidden><div class="panel task-panel"><div class="section-heading"><h2>Daily lab log</h2><label class="mono small">Log date <input type="date" id="task-date"></label></div><form id="task-form" class="task-form"><input name="title" placeholder="What will you practice today?" maxlength="180" required aria-label="Study task"><select name="priority" aria-label="Task priority"><option>Normal</option><option>High</option><option>Low</option></select><button class="button primary">＋ Add task</button></form><div id="task-list"></div><p class="muted small">Complete at least one task a day to build your study streak.</p></div></section>
+        <section id="view-sync" class="view" aria-label="Sync and backup" hidden><div class="sync-grid"><article class="panel"><p class="eyebrow">01 / KEEP A COPY</p><h2>Backup & restore</h2><p class="muted">Download your platforms, roadmaps and study logs. Restore a backup on another device.</p><div class="button-row"><button class="button primary" id="export">↓ Export JSON</button><button class="button" id="import">↑ Restore backup</button><input type="file" accept="application/json,.json" id="import-file" hidden></div><p class="small muted">Backups exclude your PIN and GitHub access token.</p></article><article class="panel"><p class="eyebrow">02 / ACROSS YOUR DEVICES</p><h2>GitHub Gist sync</h2><p class="muted">Save a private-by-link Gist and open the same data on your other devices. Sync is manual; choose upload or download.</p><label>GitHub token <input type="password" id="gist-token" autocomplete="off" placeholder="Token with Gist permission"></label><p class="small muted">Your token stays in memory for this session. Gists are unlisted, not encrypted—never add passwords or secrets to your notes.</p><label>Gist ID <input id="gist-id" spellcheck="false" placeholder="Created on first upload, or paste an existing ID"></label><div class="button-row"><button class="button primary" id="gist-upload">↑ Upload to Gist</button><button class="button" id="gist-download">↓ Download from Gist</button></div><p class="small muted" id="sync-status" aria-live="polite"></p></article><article class="panel"><p class="eyebrow">03 / SHARED MACHINES</p><h2>Workspace PIN</h2><p class="muted">Hide your dashboard behind a 4–8 digit PIN on this device. This screen lock does not encrypt browser storage.</p><button class="button" id="configure-pin">Set PIN</button></article><article class="panel"><p class="eyebrow">04 / READY WHEN YOU ARE</p><h2>Made for daily practice</h2><p class="muted">This app works offline after your first successful visit. On mobile, use your browser's “Add to Home Screen”. On desktop, use the install button when supported.</p><span class="badge emerald">NO ACCOUNT REQUIRED</span></article></div></section>
+      </main><footer><span class="mono">CYBERHUB <span class="muted">/ PERSONAL OPERATIONS</span></span><span class="muted">Learn. Practice. Progress.</span></footer>
+    </div>
+  </div>
+  <dialog id="editor"><form id="editor-form"><div class="dialog-heading"><h2 id="editor-title">Add platform</h2><button type="button" class="icon-button" id="close-editor" aria-label="Close dialog">×</button></div><div id="editor-fields"></div><div class="dialog-actions"><button type="button" class="button" id="cancel-editor">Cancel</button><button class="button primary">Save changes</button></div></form></dialog>
+  <div id="lock-screen" class="lock-screen" hidden><form id="unlock-form" class="panel lock-panel"><div class="lock-emblem">⌘</div><p class="eyebrow">WORKSPACE LOCKED</p><h1>Welcome back.</h1><p class="muted">Enter your PIN to continue to CyberHub.</p><input id="unlock-pin" type="password" inputmode="numeric" pattern="[0-9]{4,8}" maxlength="8" minlength="4" aria-label="Workspace PIN" autocomplete="off" required><button class="button primary full">Unlock workspace →</button><p id="unlock-error" class="error" aria-live="polite"></p></form></div>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
